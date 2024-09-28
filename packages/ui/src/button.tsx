@@ -1,5 +1,6 @@
 "use client";
 
+import { useSelector } from "@repo/store/react-redux";
 import { ReactNode } from "react";
 
 interface ButtonProps {
@@ -7,6 +8,7 @@ interface ButtonProps {
   className?: string;
   appName: string;
 }
+
 
 export const Button = ({ children, className, appName }: ButtonProps) => {
   return (
@@ -18,3 +20,11 @@ export const Button = ({ children, className, appName }: ButtonProps) => {
     </button>
   );
 };
+
+export const buttonChild = () => {
+  const selector = useSelector((store:any)=>store.balance);
+  console.log(selector);
+  return (
+    <div>Button Child</div>
+  )
+}

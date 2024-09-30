@@ -19,11 +19,3 @@ export const Button = ({ children, onClick }: ButtonProps) => {
     </button>
   );
 };
-
-export const buttonChild = () => {
-  const selector = useSelector((store:any)=>store.balance);
-  console.log(selector);
-  return (
-    <div>Button Child</div>
-  )
-}

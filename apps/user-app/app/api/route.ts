@@ -8,7 +8,9 @@ export const GET = async() => {
         await client.user.create({
             data:{
                 email:"nikhil",
-                name:"nikhil"
+                name:"nikhil",
+                password:"nikjil",
+                number:"1233"
             }
         })
     } catch(e) {

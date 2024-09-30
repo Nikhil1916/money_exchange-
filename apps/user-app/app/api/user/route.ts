@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 import { authOptions } from "../../lib/auth";
 export const GET = async() => {
-    console.log("kok");
     try {
     const session = await getServerSession(authOptions);
     if(session?.user) {

@@ -36,6 +36,7 @@ export const authOptions = {
 
       }
 
+      //TODO:create separate signup page 
         try {
             const user = await db.user.create({
                 data:{

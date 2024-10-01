@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Home() {
   const session = useSession();
+  console.log(session);
   return (
     <div>
       <Appbar user={session?.data?.user} onSignin={signIn} onSignOut={signOut} />

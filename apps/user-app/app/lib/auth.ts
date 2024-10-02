@@ -1,6 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import  db from "@repo/db/client";
+import { cookies } from 'next/headers'
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -65,20 +66,19 @@ export const authOptions = {
     }
 ),
 ],
-secret: process.env.JWT_SECRET || "secret",
+secret: process.env.NEXTAUTH_SECRET || "secret",
 callbacks: {
   // TODO: can u fix the type here? Using any is bad
   async session({ token, session }: any) {
     console.log(token, session);
+    if(session) {
       session.user.id = token.sub
       session.user.name = "nk";
+    }
       return session
   },
-  // async signIn({ user, account, profile, email, credentials }) {
-  //   return true
-  // },
 },
 pages:{
   signIn: '/auth/signin',
-}
+},
 };

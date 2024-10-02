@@ -13,7 +13,7 @@ interface formProps {
   onSubmit?: (isSignIn: boolean) => void;
   isSignIn: boolean;
 }
-const Form = async({ onClickNext, isSignIn }: formProps) => {
+const Form = ({ onClickNext, isSignIn }: formProps) => {
   const router = useRouter();
   const phoneNumber = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);

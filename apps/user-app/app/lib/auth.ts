@@ -73,7 +73,10 @@ callbacks: {
       session.user.id = token.sub
       session.user.name = "nk";
       return session
-  }
+  },
+  // async signIn({ user, account, profile, email, credentials }) {
+  //   return true
+  // },
 },
 pages:{
   signIn: '/auth/signin',

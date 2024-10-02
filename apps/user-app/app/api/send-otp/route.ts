@@ -3,6 +3,9 @@ import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
 import { Twilio } from "twilio";
 export const POST = async (req: NextRequest) => {
+  return NextResponse.json({
+    code:"123456"
+  })
   // eslint-disable-next-line turbo/no-undeclared-env-vars
   const accountSid = process.env.TWILIO_ACCOUNT_SID as string;
   const authToken = process.env.TWILIO_AUTH_TOKEN as string;

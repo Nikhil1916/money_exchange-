@@ -3,7 +3,7 @@
 import Form from "./Form";
 const Signup = () => {
     const onClickNext = (phoneNumber:number) => {
-        const number = phoneNumber.toString();
+        const number = phoneNumber?.toString();
         console.log(number,phoneNumber);
         if(number && number?.length == 10) {
             return true;

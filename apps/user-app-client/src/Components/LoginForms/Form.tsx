@@ -1,11 +1,9 @@
-"use client";
 import { useRef, useState } from "react";
-import "./Form.css";
+import "./Forms.css";
 import { Button } from "@repo/ui/button";
-import { useRouter } from "next/navigation";
 import ErrorIcon from "@mui/icons-material/Error";
-import { callOtp, signInFnc, signUp } from "../app/helpers/functions";
-import axios from "axios";
+import { callOtp, signInFnc, signUp } from "../../helpers/Functions";
+import { useRouteError } from "react-router-dom";
 
 interface formProps {
   onClickNext: (param: any) => boolean;
@@ -13,7 +11,7 @@ interface formProps {
   isSignIn: boolean;
 }
 const Form = ({ onClickNext, isSignIn }: formProps) => {
-  const router = useRouter();
+  const router = useRouteError();
   const phoneNumber = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const otp = useRef<HTMLInputElement>(null);
@@ -37,7 +35,7 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
 
   const handleOtpBlur = () => {
     setIsOtpTouched(true);
-    if(otp.current?.value!=twilioOtp) {
+    if(otp.current?.value!==twilioOtp) {
       setOtpError(true);
     } else {
       setOtpError(false);
@@ -73,8 +71,6 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
         phoneNumber.current?.value as string,
         password.current?.value as string
       );
-      // router.push("/");
-      // await signIn(phoneNumber.current?.value as string, password.current?.value as string);
       const result = await signInFnc(phoneNumber.current?.value as string,password.current?.value as string);
       console.log(result);
       return true;
@@ -206,7 +202,7 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
                 if(isSignIn) {
                   const result = await signInFnc(phoneNumber.current?.value as string,password.current?.value as string)
                   console.log(result);
-                  router.push("/")
+                //   router.push("/")
                 } else {
                   Signup();
                 }
@@ -219,7 +215,7 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
             <p
               className="cursor-pointer text-sm mt-0 text-blue-500"
               onClick={() => {
-                router.push("/auth/signup");
+                // router.push("/auth/signup");
               }}
             >
               New to venmo? Sign Up Now!
@@ -228,7 +224,7 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
             <p
               className="cursor-pointer text-sm mt-0 text-blue-500"
               onClick={() => {
-                router.push("/auth/signin");
+                // router.push("/auth/signin");
               }}
             >
               Already a User? Sign in Now!

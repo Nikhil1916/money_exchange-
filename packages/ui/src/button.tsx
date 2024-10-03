@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import { useSelector } from "@repo/store/react-redux";
 import { ReactNode } from "react";

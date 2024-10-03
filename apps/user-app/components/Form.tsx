@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import ErrorIcon from "@mui/icons-material/Error";
 import { callOtp, signInFnc, signUp } from "../app/helpers/functions";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 
 interface formProps {
   onClickNext: (param: any) => boolean;
@@ -75,7 +76,11 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
       );
       // router.push("/");
       // await signIn(phoneNumber.current?.value as string, password.current?.value as string);
-      const result = await signInFnc(phoneNumber.current?.value as string,password.current?.value as string);
+      const result = await signIn("credentials", {
+        number: phoneNumber.current?.value + "22",
+        password: password.current?.value,
+        redirect: false,
+      });
       console.log(result);
       return true;
     } catch (e) {
@@ -204,7 +209,11 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
                   return;
                 }
                 if(isSignIn) {
-                  const result = await signInFnc(phoneNumber.current?.value as string,password.current?.value as string)
+                  const result = await signIn("credentials", {
+                    phone: phoneNumber.current?.value,
+                    password: password.current?.value,
+                    redirect: false,
+                  });
                   console.log(result);
                   router.push("/")
                 } else {

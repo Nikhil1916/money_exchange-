@@ -11,11 +11,11 @@ function App() {
         element:<Body/>
     },
     {
-        path:'/Signin',
+        path:'/signin',
         element: <Signin/>
     },
     {
-        path:'/Signup',
+        path:'/signup',
         element: <Signup/>
     },
 ])

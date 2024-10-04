@@ -205,7 +205,11 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
                 if(isSignIn) {
                   const result = await signInFnc(phoneNumber.current?.value as string,password.current?.value as string)
                   console.log(result);
-                //   router.push("/")
+                  if(result) {
+                    navigate("/");
+                    storageService.setItem<string>(StorageKeys.TOKEN, result?.token);
+                  }
+              
                 } else {
                   Signup();
                 }

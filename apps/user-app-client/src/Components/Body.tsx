@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import storageService, { StorageKeys } from "../utils/storageService";
 import { useEffect } from "react";
+import Appbar from "@repo/ui/Appbar";
 const Body = () => {
     const navigate = useNavigate();
     const isToken = storageService.getItem<string | null>(StorageKeys.TOKEN);
@@ -13,9 +14,15 @@ const Body = () => {
             console.log("Redirecting to Signin");
             navigate("/Signin");
         }
-    }, [isToken, navigate]);
+    }, [isToken]);
     return(
         <div>
+            <Appbar user={Boolean(isToken)} onSignOut={
+                ()=>{
+                    storageService.clear();
+                    navigate("/signin");
+                }
+            }  />
             body
         </div>
     )

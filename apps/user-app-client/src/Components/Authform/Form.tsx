@@ -7,6 +7,8 @@ import ErrorIcon from "@mui/icons-material/Error";
 import { callOtp, signInFnc, signUp } from "../../utils/functions";
 import { useNavigate } from "react-router-dom";
 import storageService, { StorageKeys } from "../../utils/storageService";
+import {useDispatch} from "@repo/store/react-redux";
+import { sendNotification } from "@repo/store/configSlice";
 
 interface formProps {
   onClickNext: (param: any) => boolean;
@@ -27,6 +29,7 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
   const [isPhoneNumberTouched, setisPhoneNumberTouched] = useState(false);
   const [isOtpTouched, setIsOtpTouched] = useState(false);
   const [isOtpError, setOtpError] = useState(false);
+  const dispatch = useDispatch();
   const handleWheel = (e: any) => {
     e.target.blur();
     e.preventDefault(); // Prevent the default wheel action
@@ -78,6 +81,7 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
       console.log(result);
       storageService.setItem<string>(StorageKeys.TOKEN,result?.token as string)
       navigate("/");
+      dispatch(sendNotification("user logged in"));
       return true;
     } catch (e) {
       //do error handling
@@ -208,6 +212,7 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
                   if(result) {
                     navigate("/");
                     storageService.setItem<string>(StorageKeys.TOKEN, result?.token);
+                    dispatch(sendNotification("user logged in"));
                   }
               
                 } else {

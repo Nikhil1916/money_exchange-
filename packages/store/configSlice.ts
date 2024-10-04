@@ -6,10 +6,15 @@ const configSlice = createSlice({
     },
     reducers:{
         sendNotification:(state,action)=>{
+            console.log(action.payload);
             state.notify = action.payload;
+            return state;
+        },
+        resetState: () => {
+            return undefined; // This will reset the state slice to its initial state
         },
     }
 });
 
 export default configSlice.reducer;
-export const {sendNotification} = configSlice.actions;
+export const {sendNotification,resetState} = configSlice.actions;

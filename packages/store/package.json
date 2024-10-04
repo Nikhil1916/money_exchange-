@@ -15,10 +15,10 @@
   },
 
   "exports":{
-    "./useBalance":"./balanceSlice.ts",
+    "./balanceSlice":"./balanceSlice.ts",
     "./react-redux":"./react-redux.ts",
     "./redix-toolkit":"./redix-toolkit.ts",
-    "./store":"./appStore.ts"
-    
+    "./store":"./appStore.ts",
+    "./configSlice":"./configSlice.ts"
   }
 }

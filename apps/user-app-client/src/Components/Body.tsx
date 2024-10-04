@@ -2,10 +2,12 @@ import { useNavigate } from "react-router-dom";
 import storageService, { StorageKeys } from "../utils/storageService";
 import { useEffect } from "react";
 import Appbar from "@repo/ui/Appbar";
-import { useSelector } from "@repo/store/react-redux";
+import { useDispatch, useSelector } from "@repo/store/react-redux";
+import { resetState } from "@repo/store/configSlice";
 const Body = () => {
     const navigate = useNavigate();
     const isToken = storageService.getItem<string | null>(StorageKeys.TOKEN);
+    const dispatch = useDispatch();
     useEffect(() => {
         if (isToken) {
             // Navigate to the home page or another route
@@ -21,6 +23,7 @@ const Body = () => {
             <Appbar user={Boolean(isToken)} onSignOut={
                 ()=>{
                     storageService.clear();
+                    dispatch(resetState());
                     navigate("/signin");
                 }
             }  />

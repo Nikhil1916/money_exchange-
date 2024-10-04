@@ -9,10 +9,6 @@ const Signin = () => {
     if (isToken) {
       // Navigate to the home page or another route
       navigate("/");
-    } else {
-      // Navigate to the sign-in page
-      console.log("Redirecting to Signin");
-      navigate("/Signin");
     }
   }, [isToken]);
   const onClickNext = (phoneNumber: number) => {

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import balanceSlice from "./balanceSlice";
+import rootReducer from "./rootReducer";
 const appStore = configureStore({
   reducer: {
-    balance: balanceSlice,
+    reducer: rootReducer
   },
 });
 

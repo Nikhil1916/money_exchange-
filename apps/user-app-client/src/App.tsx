@@ -5,6 +5,7 @@ import Body from './Components/Body';
 import Signin from './Components/Signin';
 import Signup from './Components/Signup';
 import { StoreProvider } from '@repo/ui/Providers';
+import Notification from './Components/Notification';
 function App() {
   const router = createBrowserRouter([
     {
@@ -23,6 +24,7 @@ function App() {
   return (
     <div>
       <StoreProvider>
+        <Notification/>
         <RouterProvider router={router}/>
       </StoreProvider>
     </div>

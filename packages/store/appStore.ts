@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
+import configSlice from "./configSlice";
 const appStore = configureStore({
   reducer: {
-    reducer: rootReducer
+    config: configSlice
   },
 });
 

@@ -3,7 +3,7 @@ import storageService, { StorageKeys } from "../utils/storageService";
 import { useEffect } from "react";
 import Appbar from "@repo/ui/Appbar";
 import { useDispatch, useSelector } from "@repo/store/react-redux";
-import { resetState } from "@repo/store/configSlice";
+import { resetState, sendNotification } from "@repo/store/configSlice";
 const Body = () => {
     const navigate = useNavigate();
     const isToken = storageService.getItem<string | null>(StorageKeys.TOKEN);
@@ -23,8 +23,10 @@ const Body = () => {
             <Appbar user={Boolean(isToken)} onSignOut={
                 ()=>{
                     storageService.clear();
-                    dispatch(resetState());
+                    console.log("check");
+                    // dispatch(resetState());
                     navigate("/signin");
+                    window.location.reload();
                 }
             }  />
             body

@@ -6,7 +6,11 @@ const balanceSlice = createSlice({
         updateBalance:(state,action)=>{
             state = action.payload;
             return state;
-        }
+        },
+        resetState: () => {
+            console.log("okokkokok");
+            return undefined; // This will reset the state slice to its initial state
+        },
     }
 });
 

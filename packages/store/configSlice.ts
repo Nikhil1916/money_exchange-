@@ -1,17 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
+const initialState = {
+    notify:""
+};
 const configSlice = createSlice({
     name:'config',
-    initialState: {
-        notify:""
-    },
+    initialState,
     reducers:{
         sendNotification:(state,action)=>{
             console.log(action.payload);
             state.notify = action.payload;
-            return state;
+            console.log(current(state));
+            // return state;
         },
         resetState: () => {
-            return undefined; // This will reset the state slice to its initial state
+            console.log("okokkokok");
+            return initialState; // This will reset the state slice to its initial state
         },
     }
 });

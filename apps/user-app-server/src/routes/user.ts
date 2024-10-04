@@ -1,9 +1,18 @@
 import express from "express";
 import client from '@repo/db/client';
-import bcrypt from "bcrypt";
+import bcrypt from 'bcryptjs';
+import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 const userRouter = express.Router();
+import dotenv from 'dotenv';
+
+// Load .env variables
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET as string; 
 userRouter.post("/signup",async (req:any, res:any)=>{
-    console.log("okokokokokokoko");
+    // console.log(JWT_SECRET);
+    // return res.json({
+    //     JWT_SECRET
+    // })
     try {
         const userBody = req.body;
         console.log(userBody);
@@ -33,15 +42,19 @@ userRouter.post("/signup",async (req:any, res:any)=>{
               userId: user?.id
             }
           });
-        //   signin
+          const token = jwt.sign({ userId:user?.id }, JWT_SECRET , {
+            expiresIn:"2 hours"
+          });
         return res.json({
-            id: user.id
+            id: user.id,
+            token
         })
     } catch(e) {
+        console.log(e);
         return res.status(400).json({
             error:"User creation api failed",
             e
-        })
+        });
     }
 });
 

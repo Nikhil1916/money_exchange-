@@ -1,9 +1,9 @@
 import axios from "axios";
 export const callOtp = async (phoneNumber: string) => {
-  let data = JSON.stringify({
+  const data = JSON.stringify({
     phoneNumber: phoneNumber,
   });
-  let config = {
+  const config = {
     method: "post",
     maxBodyLength: Infinity,
     url: "http://localhost:7000/api/v1/send-otp",
@@ -21,12 +21,17 @@ export const callOtp = async (phoneNumber: string) => {
     throw Error("Otp Api Failed");
   }
 };
-export const signUp = (phoneNumber:string, password:string) => {
-  let data = JSON.stringify({
+interface SignUpResponse {
+  id: number;
+  token: string;
+}
+
+export const signUp = async(phoneNumber:string, password:string) : Promise<SignUpResponse | null | undefined> => {
+  const data = JSON.stringify({
     phoneNumber,
     password
   });
-  let config = {
+  const config = {
     method: "post",
     maxBodyLength: Infinity,
     url: "http://localhost:7000/api/v1/user/signup",
@@ -35,14 +40,14 @@ export const signUp = (phoneNumber:string, password:string) => {
     },
     data: data,
   };
-  axios
-    .request(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  let result;
+  try {
+    result = await axios.request(config);
+    return result?.data;
+  } catch(e) {
+    console.warn(e);
+    return null;
+  }
 };
 export const signInFnc = (phoneNumber:string, password:string) => {
   // const axios = require('axios');

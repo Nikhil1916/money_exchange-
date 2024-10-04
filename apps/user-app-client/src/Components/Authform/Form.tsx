@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useState } from "react";
 import "./Form.css";
 import { Button } from "@repo/ui/button";
 import ErrorIcon from "@mui/icons-material/Error";
 import { callOtp, signInFnc, signUp } from "../../utils/functions";
 import { useNavigate } from "react-router-dom";
+import storageService, { StorageKeys } from "../../utils/storageService";
 
 interface formProps {
   onClickNext: (param: any) => boolean;
@@ -67,12 +70,14 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
 
   const Signup = async () => {
     try {
-      await signUp(
+      const result = await signUp(
         phoneNumber.current?.value as string,
         password.current?.value as string
       );
-      const result = await signInFnc(phoneNumber.current?.value as string,password.current?.value as string);
+      // const result = await signInFnc(phoneNumber.current?.value as string,password.current?.value as string);
       console.log(result);
+      storageService.setItem<string>(StorageKeys.TOKEN,result?.token as string)
+      navigate("/");
       return true;
     } catch (e) {
       //do error handling

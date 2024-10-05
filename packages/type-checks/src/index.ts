@@ -5,3 +5,13 @@ export const webHookSchema = z.object({
     amount:z.string(),
     webHookUrl: z.string(),
 });
+
+
+
+//signup / signin schema
+export const signUpSchema = z.object({
+    phoneNumber: z.string(),
+    password: z.string()
+})
+
+export type signUpInput = z.infer<typeof signUpSchema>;

@@ -4,14 +4,22 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 const userRouter = express.Router();
 import dotenv from "dotenv";
-
+var zodSchemas:any;
+(async () => {
+  zodSchemas = await import('@repo/type-checks/zodSchemas');
+})();
 // Load .env variables
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET as string;
 userRouter.post("/signup", async (req: any, res: any) => {
   try {
     const userBody = req.body;
-    console.log(userBody);
+    const isSchemaValid = zodSchemas.signUpSchema.safeParse(userBody);
+    if(!isSchemaValid?.success) {
+        return res.json({
+          msg:"Invalid schema",
+        })
+    }
     const checkUser = await client.user.findFirst({
       where: {
         number: userBody.phoneNumber,

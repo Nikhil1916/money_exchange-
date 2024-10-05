@@ -47,9 +47,9 @@ export const signUp = async (
   try {
     result = await axios.request(config);
     return result?.data;
-  } catch (e) {
+  } catch (e:any) {
     console.warn(e);
-    return null;
+    throw Error();
   }
 };
 export const signInFnc = async (
@@ -74,8 +74,9 @@ export const signInFnc = async (
   try {
     result = await axios.request(config);
     return result?.data;
-  } catch (e) {
+  } catch (e:any) {
     console.warn(e);
+    throw Error(e?.response?.data?.msg || " server error");
     return null;
   }
 };

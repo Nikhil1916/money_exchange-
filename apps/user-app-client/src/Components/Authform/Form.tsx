@@ -67,8 +67,12 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
   };
 
   const sendOtp = async () => {
-    const otpResponse = await callOtp(phoneNumber?.current?.value as string);
-    settwilioOtp(otpResponse);
+    try {
+      const otpResponse = await callOtp(phoneNumber?.current?.value as string);
+      settwilioOtp(otpResponse);
+    } catch(e:any) {
+      dispatch(sendNotification(e?.message))
+    }
   };
 
   const Signup = async () => {
@@ -84,7 +88,7 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
       dispatch(sendNotification("user logged in"));
       return true;
     } catch (e) {
-      //do error handling
+      dispatch(sendNotification("User signup api failed"));
       return false;
     }
   };
@@ -182,7 +186,7 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
                   setFirstPage(false);
                   setSecondPage(true);
                 } else if (secondPage) {
-                  if (otp?.current?.value != twilioOtp) {
+                  if ((otp?.current?.value != twilioOtp || !twilioOtp || !otp?.current?.value)) {
                     setOtpError(true);
                     return;
                   } else {
@@ -207,12 +211,17 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
                   return;
                 }
                 if(isSignIn) {
-                  const result = await signInFnc(phoneNumber.current?.value as string,password.current?.value as string)
-                  console.log(result);
-                  if(result) {
-                    navigate("/");
-                    storageService.setItem<string>(StorageKeys.TOKEN, result?.token);
-                    dispatch(sendNotification("user logged in"));
+                  try {
+                    const result = await signInFnc(phoneNumber.current?.value as string,password.current?.value as string)
+                    console.log(result);
+                    if(result) {
+                      navigate("/");
+                      storageService.setItem<string>(StorageKeys.TOKEN, result?.token);
+                      dispatch(sendNotification("user logged in"));
+                    }
+                  } catch(e:any) {
+                    dispatch(sendNotification(e?.message));
+                    return;
                   }
               
                 } else {

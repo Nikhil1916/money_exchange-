@@ -7,7 +7,10 @@
     "./card": "./src/card.tsx",
     "./code": "./src/code.tsx",
     "./Providers":"./src/Providers.tsx",
-    "./Appbar": "./src/Appbar.tsx"
+    "./Appbar": "./src/Appbar.tsx",
+    "./Center":"./src/Center.tsx",
+    "./Select":"./src/Select.tsx",
+    "./TextComponent":"./src/TextComponent.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

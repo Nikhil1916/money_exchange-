@@ -11,13 +11,6 @@ const Notification = () =>{
         toast(message)
     }
   },[message])
-  console.log(message);
-//   if(!message) {
-//     return;
-//   }
-//   console.log(message, 2);
-//   const notify = (message:string) => toast(message);
-//   notify(message);
   return (
     <div>
       <ToastContainer position="bottom-left"/>

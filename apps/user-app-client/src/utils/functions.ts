@@ -26,10 +26,13 @@ interface SignUpResponse {
   token: string;
 }
 
-export const signUp = async(phoneNumber:string, password:string) : Promise<SignUpResponse | null | undefined> => {
+export const signUp = async (
+  phoneNumber: string,
+  password: string
+): Promise<SignUpResponse | null | undefined> => {
   const data = JSON.stringify({
     phoneNumber,
-    password
+    password,
   });
   const config = {
     method: "post",
@@ -44,33 +47,59 @@ export const signUp = async(phoneNumber:string, password:string) : Promise<SignU
   try {
     result = await axios.request(config);
     return result?.data;
-  } catch(e) {
+  } catch (e) {
     console.warn(e);
     return null;
   }
 };
-export const signInFnc = async(phoneNumber:string, password:string):Promise<SignUpResponse | null | undefined> => {
+export const signInFnc = async (
+  phoneNumber: string,
+  password: string
+): Promise<SignUpResponse | null | undefined> => {
   const data = JSON.stringify({
-  phoneNumber,
-  password
+    phoneNumber,
+    password,
   });
-  
+
   const config = {
-    method: 'post',
+    method: "post",
     maxBodyLength: Infinity,
-    url: 'http://localhost:7000/api/v1/user/signin',
-    headers: { 
-      'Content-Type': 'application/json'
+    url: "http://localhost:7000/api/v1/user/signin",
+    headers: {
+      "Content-Type": "application/json",
     },
-    data : data
+    data: data,
   };
   let result;
   try {
     result = await axios.request(config);
     return result?.data;
-  } catch(e) {
+  } catch (e) {
     console.warn(e);
     return null;
   }
-  
-}
+};
+
+export const isUserLoggedInFnc = async (token: string) => {
+  try {
+    const data = JSON.stringify({
+      token,
+    });
+
+    const config = {
+      method: "post",
+      maxBoyLength: Infinity,
+      url: "http://localhost:7000/api/v1/user/isSignedin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data,
+    };
+
+    const result = await axios.request(config);
+    return result?.data
+  } catch (e) {
+    console.warn(e);
+    return null;
+  }
+};

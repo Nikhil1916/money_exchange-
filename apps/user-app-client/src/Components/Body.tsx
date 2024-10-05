@@ -1,24 +1,31 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import storageService, { StorageKeys } from "../utils/storageService";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Appbar from "@repo/ui/Appbar";
-import { useDispatch, useSelector } from "@repo/store/react-redux";
-import { resetState, sendNotification } from "@repo/store/configSlice";
 import Sidebar from "./Sidebar";
+import { isUserLoggedInFnc } from "../utils/functions";
 const Body = () => {
   const navigate = useNavigate();
-  const isToken = storageService.getItem<string | null>(StorageKeys.TOKEN);
-  const dispatch = useDispatch();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
-    if (isToken) {
-      // Navigate to the home page or another route
-      navigate("/");
+    isUserLoggedIn();
+  }, []);
+  
+  const isUserLoggedIn = async() => {
+    const token = storageService.getItem<string | null>(StorageKeys.TOKEN);
+    if(!token) {
+      signOut();
     } else {
-      // Navigate to the sign-in page
-      console.log("Redirecting to Signin");
-      navigate("/Signin");
+      const data  = await isUserLoggedInFnc(token);
+      if(!data) {
+        signOut();
+      } else {
+        setIsLoggedIn(true);
+      }
+      console.log(data);
     }
-  }, [isToken]);
+  }
+
   const signOut = () => {
     storageService.clear();
     navigate("/signin");
@@ -26,7 +33,7 @@ const Body = () => {
   };
   return (
     <div>
-      <Appbar user={Boolean(isToken)} onSignOut={signOut} />
+      <Appbar user={Boolean(isLoggedIn)} onSignOut={signOut} />
       <div className="flex">
         <Sidebar />
         <div className="ml-60 p-2">

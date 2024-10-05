@@ -94,4 +94,22 @@ userRouter.post("/signin", async (req: any, res: any) => {
   }
 });
 
+
+userRouter.post("/isSignedIn", async (req: any, res: any) => {
+  try {
+    const userBody = req.body;
+    const isLoggedIn = jwt.verify(userBody?.token, JWT_SECRET);
+    console.log(isLoggedIn);
+    return res.json({
+      isLoggedIn
+    })
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({
+      isLoggedIn: false,
+      e,
+    });
+  }
+});
+
 export default userRouter;

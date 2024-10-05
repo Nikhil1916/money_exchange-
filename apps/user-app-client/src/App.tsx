@@ -7,6 +7,8 @@ import Signup from './Components/Signup';
 import { StoreProvider } from '@repo/ui/Providers';
 import Notification from './Components/Notification';
 import Dashboard from './Components/Dashboard';
+import Transactions from './Components/Transactions';
+import Transfer from './Components/Transfer';
 function App() {
   const router = createBrowserRouter([
     {
@@ -20,6 +22,14 @@ function App() {
           {
             path:'/dashboard',
             element:<Dashboard/>
+          },
+          {
+            path:"/transactions",
+            element:<Transactions/>
+          },
+          {
+            path:"/transfer",
+            element:<Transfer/>
           }
         ]
     },

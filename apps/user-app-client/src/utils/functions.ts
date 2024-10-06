@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosInstance from "./axiosIntercepter";
 export const callOtp = async (phoneNumber: string) => {
   const data = JSON.stringify({
     phoneNumber: phoneNumber,
@@ -13,7 +14,7 @@ export const callOtp = async (phoneNumber: string) => {
     data: data,
   };
   try {
-    const response = await axios.request(config);
+    const response = await axiosInstance.request(config);
     console.log(JSON.stringify(response.data));
     return response?.data?.code;
   } catch (error) {
@@ -45,7 +46,7 @@ export const signUp = async (
   };
   let result;
   try {
-    result = await axios.request(config);
+    result = await axiosInstance.request(config);
     return result?.data;
   } catch (e:any) {
     console.warn(e);
@@ -72,7 +73,7 @@ export const signInFnc = async (
   };
   let result;
   try {
-    result = await axios.request(config);
+    result = await axiosInstance.request(config);
     return result?.data;
   } catch (e:any) {
     console.warn(e);
@@ -97,10 +98,12 @@ export const isUserLoggedInFnc = async (token: string) => {
       data,
     };
 
-    const result = await axios.request(config);
+    const result = await axiosInstance.request(config);
     return result?.data
   } catch (e) {
     console.warn(e);
     return null;
   }
 };
+
+

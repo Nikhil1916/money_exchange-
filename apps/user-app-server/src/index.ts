@@ -7,6 +7,8 @@ const PORT = 7000;
 app.use(bodyParser.json());
 const corsOptions = { 
     origin : ['http://localhost:5174'], 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allow specific methods
+    credentials: true, // Allow sending cookies and credentials if needed
 } 
 app.use(cors(corsOptions))
 app.get("/api/healthy-server",(req:any,res:any)=>{

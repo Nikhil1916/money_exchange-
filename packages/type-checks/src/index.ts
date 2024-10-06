@@ -15,3 +15,13 @@ export const signUpSchema = z.object({
 })
 
 export type signUpInput = z.infer<typeof signUpSchema>;
+
+
+export const getBalanceResponse  = z.object({
+    id: z.number(),
+    amount: z.number(),
+    locked: z.number(),
+    userId: z.number()
+});
+
+export type getBalanceResponseUi = z.infer<typeof getBalanceResponse>;

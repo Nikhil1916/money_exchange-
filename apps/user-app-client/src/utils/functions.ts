@@ -15,7 +15,7 @@ export const callOtp = async (phoneNumber: string) => {
   };
   try {
     const response = await axiosInstance.request(config);
-    console.log(JSON.stringify(response.data));
+    // console.log(JSON.stringify(response.data));
     return response?.data?.code;
   } catch (error) {
     console.error(error);
@@ -105,5 +105,43 @@ export const isUserLoggedInFnc = async (token: string) => {
     return null;
   }
 };
+
+export const getOnRampTransactions = async() => {
+  const config = {
+    method:'get',
+    maxBodyLength: Infinity,
+    url: 'http://localhost:7000/api/v1/onRampTransactions',
+    headers: {
+      "Content-Type": "application/json",
+    }
+  }
+
+  try {
+    const response = await axiosInstance.request(config);
+    // console.log(response);
+    return response?.data;
+  } catch(e:any) {
+    throw Error(e?.response?.data?.msg || " server error");
+  }
+}
+
+export const getBalance = async() => {
+  const config = {
+    method:'get',
+    maxBodyLength: Infinity,
+    url: 'http://localhost:7000/api/v1/Balance',
+    headers: {
+      "Content-Type": "application/json",
+    }
+  }
+
+  try {
+    const response = await axiosInstance.request(config);
+    // console.log(response);
+    return response?.data;
+  } catch(e:any) {
+    throw Error(e?.response?.data?.msg || "server error");
+  }
+}
 
 

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import storageService, { StorageKeys } from "../../utils/storageService";
 import {useDispatch} from "@repo/store/react-redux";
 import { sendNotification } from "@repo/store/configSlice";
+import { toastEnum, toastHelper } from "../../utils/toast";
 
 interface formProps {
   onClickNext: (param: any) => boolean;
@@ -71,7 +72,7 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
       const otpResponse = await callOtp(phoneNumber?.current?.value as string);
       settwilioOtp(otpResponse);
     } catch(e:any) {
-      dispatch(sendNotification(e?.message))
+      toastHelper(e?.message, toastEnum.ERROR);
     }
   };
 
@@ -85,10 +86,11 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
       console.log(result);
       storageService.setItem<string>(StorageKeys.TOKEN,result?.token as string)
       navigate("/");
-      dispatch(sendNotification("user logged in"));
+      toastHelper("user logged in", toastEnum.SUCCESS);
       return true;
-    } catch (e) {
-      dispatch(sendNotification("User signup api failed"));
+    } catch (e:any) {
+      toastHelper(e?.message, toastEnum.ERROR);
+      // dispatch(sendNotification(null));
       return false;
     }
   };
@@ -217,10 +219,11 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
                     if(result) {
                       navigate("/");
                       storageService.setItem<string>(StorageKeys.TOKEN, result?.token);
-                      dispatch(sendNotification("user logged in"));
+                      toastHelper("user logged in", toastEnum.SUCCESS);
                     }
                   } catch(e:any) {
-                    dispatch(sendNotification(e?.message));
+                    console.log(e.message);
+                    toastHelper(e?.message, toastEnum.ERROR);
                     return;
                   }
               

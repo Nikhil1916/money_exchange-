@@ -34,7 +34,7 @@ const Body = () => {
   return (
     <div>
       <Appbar user={Boolean(isLoggedIn)} onSignOut={signOut} />
-      <div className="flex">
+      <div className="md:flex pt-[3.6rem]">
         <Sidebar />
         <div className="ml-60 p-2">
         <Outlet />

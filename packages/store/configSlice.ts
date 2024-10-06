@@ -10,7 +10,7 @@ const configSlice = createSlice({
             console.log(action.payload);
             state.notify = action.payload;
             console.log(current(state));
-            // return state;
+            return {...state};
         },
         resetState: () => {
             console.log("okokkokok");

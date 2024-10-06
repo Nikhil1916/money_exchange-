@@ -49,7 +49,7 @@ export const signUp = async (
     return result?.data;
   } catch (e:any) {
     console.warn(e);
-    throw Error();
+    throw Error(e?.response?.data?.msg || "server error");
   }
 };
 export const signInFnc = async (

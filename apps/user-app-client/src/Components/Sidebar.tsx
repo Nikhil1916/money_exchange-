@@ -5,7 +5,7 @@ const Sidebar = () => {
   return (
     <>
       <div
-        className="w-52 p-5 shadow-lg z-10 mt-[0.5px] flex flex-col gap-3 pl-0"
+        className="w-0 md:w-52 p-5 shadow-lg z-10 mt-[0.5px] flex flex-col gap-3 pl-0 hidden md:block"
         id="sidebar"
       >
         <ul className="flex flex-col gap-2  justify-center">

@@ -16,7 +16,7 @@ interface AppBarProps {
 const Appbar = ({ user, onSignOut }: AppBarProps) => {
   console.log(user);
   return (
-    <div className="flex justify-between shadow-md px-5">
+    <div className="flex justify-between shadow-md px-5 fixed w-full z-10">
       <div className="text-lg flex flex-col justify-center text-slate-500 font-bold">PulseWallet</div>
       <div className="flex flex-col justify-center pt-2">
         <Button className={"bg-black"} onClick={onSignOut}>{"Sign Out"}</Button>

@@ -6,6 +6,7 @@ const BankUI = () => {
     const navigate = useNavigate();
   const addMoneyToWallet = async() => {
     try {
+        setTimeout(()=>{},100);
         await addToWallet(searchParams.get("amount") as string,searchParams.get("name") as string);
         toastHelper("transaction completed", toastEnum.SUCCESS);
         navigate("/transfer")

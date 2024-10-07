@@ -4,57 +4,56 @@ import bodyParser from "body-parser";
 const app = express();
 
 app.use(bodyParser.json());
-app.post("/hdfcwebhook",async(req,res)=>{
-    try {
-        console.log(req.body);
-        const paymentInformation = {
-            token: req.body.token,
-            userId: req.body.userId,
-            amount: req.body.amount
-        };
-        console.log(paymentInformation);
-        await client.balance.update({
-            where: {
-                userId: Number(paymentInformation.userId)
-            },
-            data:{
-                amount:{
-                    increment:Number(paymentInformation.amount)
-                }
-            }
-        });
-    
-        await client.onRampTransaction.update({
-            where:{
-                token:paymentInformation.token
-            },
-            data:{
-                status:"Success"
-            }
-        })
-        res.json({
-            message: "Captured"
-        })
-    } catch(e) {
-        const paymentInformation = {
-           ...req.body
-        };
-        console.log(e);
-        await client.onRampTransaction.update({
-            where:{
-                token:paymentInformation.token
-            },
-            data:{
-                status:"Failure"
-            }
-        })
-        res.json({
-            e,
-            paymentInformation
-        })
-    }
+app.post("/hdfcwebhook", async (req: any, res: any) => {
+  try {
+    console.log(req.body);
+    const paymentInformation = {
+      token: String(req.body.token),
+      userId: req.body.userId,
+      amount: req.body.amount,
+    };
+    await client.$transaction([
+      client.balance.update({
+        where: {
+          userId: Number(paymentInformation.userId),
+        },
+        data: {
+          amount: {
+            increment: Number(paymentInformation.amount),
+          },
+        },
+      }),
+      client.onRampTransaction.update({
+        where: {
+          token: paymentInformation.token,
+        },
+        data: {
+          status: "Success",
+        },
+      }),
+    ]);
+
+    return res.json({
+      message: "Captured",
+    });
+  } catch (e) {
+    const paymentInformation = {
+      ...req.body,
+    };
+    await client.onRampTransaction.update({
+      where: {
+        token: paymentInformation.token,
+      },
+      data: {
+        status: "Failure",
+      },
+    });
+    res.status(400).json({
+      e,
+    });
+  }
 });
 
-app.listen(6000,()=>{
-    console.log("web hook handler listens on 5000")
+app.listen(6000, () => {
+  console.log("web hook handler listens on 6000");
 });

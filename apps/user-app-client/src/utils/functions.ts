@@ -148,7 +148,29 @@ export const getBalance = async() => {
   }
 }
 
-export const addToWallet = (amount:string, name:string) => {
+export const addToWallet = async(amount:string, name:string) => {
+  const amountTransformed = Number(amount);
+  const data = JSON.stringify({
+    amount:amountTransformed,
+    name,
+  });
 
+  const config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: BASE_URL+"/api/v1/transfer/addToWallet",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+  let result;
+  try {
+    result = await axiosInstance.request(config);
+    return result?.data;
+  } catch (e:any) {
+    console.warn(e);
+    throw Error(e?.response?.data?.msg || " server error");
+  }
 }
 

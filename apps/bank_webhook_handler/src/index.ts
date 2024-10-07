@@ -40,6 +40,14 @@ app.post("/hdfcwebhook",async(req,res)=>{
            ...req.body
         };
         console.log(e);
+        await client.onRampTransaction.update({
+            where:{
+                token:paymentInformation.token
+            },
+            data:{
+                status:"Failure"
+            }
+        })
         res.json({
             e,
             paymentInformation

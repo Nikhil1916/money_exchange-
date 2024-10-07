@@ -1,12 +1,14 @@
 import { Button } from "@repo/ui/button";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { addToWallet } from "../utils/functions";
 import { toastEnum, toastHelper } from "../utils/toast";
 const BankUI = () => {
+    const navigate = useNavigate();
   const addMoneyToWallet = async() => {
     try {
         await addToWallet(searchParams.get("amount") as string,searchParams.get("name") as string);
         toastHelper("transaction completed", toastEnum.SUCCESS);
+        navigate("/transfer")
     } catch(e) {
         toastHelper("transaction failed", toastEnum.ERROR);
     }

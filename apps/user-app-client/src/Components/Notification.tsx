@@ -6,7 +6,7 @@ import {useEffect} from "react";
 const Notification = () =>{
   const message = useSelector((app:any)=>app?.config?.notify);
   console.log(message);
-  console.log(message);
+  // console.log(message);
   useEffect(()=>{
     if(message) {
         toast(message)

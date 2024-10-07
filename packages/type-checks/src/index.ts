@@ -25,3 +25,10 @@ export const getBalanceResponse  = z.object({
 });
 
 export type getBalanceResponseUi = z.infer<typeof getBalanceResponse>;
+
+export const addTOWalletBody = z.object({
+    amount: z.number(),
+    name: z.string()
+});
+
+export type addTOWalletPayload = z.infer<typeof addTOWalletBody>;

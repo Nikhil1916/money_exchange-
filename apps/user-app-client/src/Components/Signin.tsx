@@ -13,7 +13,7 @@ const Signin = () => {
   }, [isToken]);
   const onClickNext = (phoneNumber: number) => {
     const number = phoneNumber.toString();
-    console.log(number, phoneNumber);
+    // console.log(number, phoneNumber);
     if (number && number?.length == 10) {
       return true;
     }

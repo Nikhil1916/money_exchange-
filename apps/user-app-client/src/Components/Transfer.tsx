@@ -12,6 +12,7 @@ const Transfer = () => {
     // const [balance, setBalance] = useState();
     const balance:any | null = useBalance();
     console.log(balance);
+    // console.warn(process.env.VITE_API_URL);
     useEffect(()=>{
         fetchTransactions();
     },[]);

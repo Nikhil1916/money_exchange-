@@ -83,7 +83,7 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
         password.current?.value as string
       );
       // const result = await signInFnc(phoneNumber.current?.value as string,password.current?.value as string);
-      console.log(result);
+      // console.log(result);
       storageService.setItem<string>(StorageKeys.TOKEN,result?.token as string)
       navigate("/");
       toastHelper("user logged in", toastEnum.SUCCESS);
@@ -215,14 +215,14 @@ const Form = ({ onClickNext, isSignIn }: formProps) => {
                 if(isSignIn) {
                   try {
                     const result = await signInFnc(phoneNumber.current?.value as string,password.current?.value as string)
-                    console.log(result);
+                    // console.log(result);
                     if(result) {
                       navigate("/");
                       storageService.setItem<string>(StorageKeys.TOKEN, result?.token);
                       toastHelper("user logged in", toastEnum.SUCCESS);
                     }
                   } catch(e:any) {
-                    console.log(e.message);
+                    // console.log(e.message);
                     toastHelper(e?.message, toastEnum.ERROR);
                     return;
                   }

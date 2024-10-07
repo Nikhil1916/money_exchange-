@@ -1,5 +1,7 @@
 import axios from "axios";
 import axiosInstance from "./axiosIntercepter";
+// var BASE_URL = 
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const callOtp = async (phoneNumber: string) => {
   const data = JSON.stringify({
     phoneNumber: phoneNumber,
@@ -7,7 +9,7 @@ export const callOtp = async (phoneNumber: string) => {
   const config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "http://localhost:7000/api/v1/send-otp",
+    url: BASE_URL+"/api/v1/send-otp",
     headers: {
       "Content-Type": "application/json",
     },
@@ -38,7 +40,7 @@ export const signUp = async (
   const config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "http://localhost:7000/api/v1/user/signup",
+    url: BASE_URL+"/api/v1/user/signup",
     headers: {
       "Content-Type": "application/json",
     },
@@ -65,7 +67,7 @@ export const signInFnc = async (
   const config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "http://localhost:7000/api/v1/user/signin",
+    url: BASE_URL+"/api/v1/user/signin",
     headers: {
       "Content-Type": "application/json",
     },
@@ -83,6 +85,7 @@ export const signInFnc = async (
 };
 
 export const isUserLoggedInFnc = async (token: string) => {
+  // const BASE_URL = import.meta.env.VITE_API_URL;
   try {
     const data = JSON.stringify({
       token,
@@ -91,7 +94,7 @@ export const isUserLoggedInFnc = async (token: string) => {
     const config = {
       method: "post",
       maxBoyLength: Infinity,
-      url: "http://localhost:7000/api/v1/user/isSignedin",
+      url: BASE_URL+"/api/v1/user/isSignedin",
       headers: {
         "Content-Type": "application/json",
       },
@@ -107,10 +110,12 @@ export const isUserLoggedInFnc = async (token: string) => {
 };
 
 export const getOnRampTransactions = async() => {
+  // console.warn(process?.env);
+  // const BASE_URL = import.meta.env.VITE_API_URL;
   const config = {
     method:'get',
     maxBodyLength: Infinity,
-    url: 'http://localhost:7000/api/v1/onRampTransactions',
+    url: BASE_URL+'/api/v1/onRampTransactions',
     headers: {
       "Content-Type": "application/json",
     }
@@ -118,10 +123,10 @@ export const getOnRampTransactions = async() => {
 
   try {
     const response = await axiosInstance.request(config);
-    // console.log(response);
     return response?.data;
   } catch(e:any) {
-    throw Error(e?.response?.data?.msg || " server error");
+    console.error(e);
+    throw Error(e?.response?.data?.msg || "server error");
   }
 }
 
@@ -129,7 +134,7 @@ export const getBalance = async() => {
   const config = {
     method:'get',
     maxBodyLength: Infinity,
-    url: 'http://localhost:7000/api/v1/Balance',
+    url: BASE_URL+'/api/v1/Balance',
     headers: {
       "Content-Type": "application/json",
     }
@@ -137,11 +142,13 @@ export const getBalance = async() => {
 
   try {
     const response = await axiosInstance.request(config);
-    // console.log(response);
     return response?.data;
   } catch(e:any) {
     throw Error(e?.response?.data?.msg || "server error");
   }
 }
 
+export const addToWallet = (amount:string, name:string) => {
+
+}
 

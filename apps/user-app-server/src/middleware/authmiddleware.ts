@@ -12,7 +12,7 @@ const authMiddleware = (req:any, res:any, next:any) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
         console.log(decoded, "okokok");
         if((decoded as JwtPayload)?.userId) {
-            console.log("done");
+            // console.log("done");
             req.userId = (decoded as JwtPayload)?.userId;
             next();
         }

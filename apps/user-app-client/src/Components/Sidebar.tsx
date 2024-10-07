@@ -16,7 +16,7 @@ const Sidebar = () => {
             title="Transfer"
           />
           <SidebarItem
-            href={"/transactions"}
+            href={"/view-transactions"}
             icon={<TransactionsIcon />}
             title="Transactions"
           />

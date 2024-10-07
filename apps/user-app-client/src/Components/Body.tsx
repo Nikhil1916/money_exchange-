@@ -22,7 +22,7 @@ const Body = () => {
       } else {
         setIsLoggedIn(true);
       }
-      console.log(data);
+      // console.log(data);
     }
   }
 

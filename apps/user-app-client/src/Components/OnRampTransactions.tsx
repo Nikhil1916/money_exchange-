@@ -4,7 +4,7 @@ const OnRampTransactions = ({
     transactions
 }: {
     transactions: {
-        time: Date,
+        startTime: Date,
         amount: number,
         // TODO: Can the type of `status` be more specific?
         status: string,
@@ -26,11 +26,11 @@ const OnRampTransactions = ({
                         Received INR
                     </div>
                     <div className="text-slate-600 text-xs">
-                        {t.time.toDateString()}
+                        {new Date(t?.startTime)?.toDateString()}
                     </div>
                 </div>
                 <div className="flex flex-col justify-center">
-                    + Rs {t.amount / 100}
+                    + Rs {t?.amount / 100}
                 </div>
 
             </div>)}

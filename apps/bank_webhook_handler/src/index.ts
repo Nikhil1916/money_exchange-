@@ -48,6 +48,7 @@ app.post("/hdfcwebhook", async (req: any, res: any) => {
         status: "Failure",
       },
     });
+    console.log(e, "hdfc web hook service failed");
     res.status(400).json({
       e,
     });

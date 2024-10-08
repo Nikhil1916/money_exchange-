@@ -7,7 +7,7 @@ export const callOtp = async (phoneNumber: string) => {
   const config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: BASE_URL+"/api/v1/send-otp",
+    url: BASE_URL + "/api/v1/send-otp",
     headers: {
       "Content-Type": "application/json",
     },
@@ -38,7 +38,7 @@ export const signUp = async (
   const config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: BASE_URL+"/api/v1/user/signup",
+    url: BASE_URL + "/api/v1/user/signup",
     headers: {
       "Content-Type": "application/json",
     },
@@ -48,7 +48,7 @@ export const signUp = async (
   try {
     result = await axiosInstance.request(config);
     return result?.data;
-  } catch (e:any) {
+  } catch (e: any) {
     console.warn(e);
     throw Error(e?.response?.data?.msg || "server error");
   }
@@ -65,7 +65,7 @@ export const signInFnc = async (
   const config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: BASE_URL+"/api/v1/user/signin",
+    url: BASE_URL + "/api/v1/user/signin",
     headers: {
       "Content-Type": "application/json",
     },
@@ -75,7 +75,7 @@ export const signInFnc = async (
   try {
     result = await axiosInstance.request(config);
     return result?.data;
-  } catch (e:any) {
+  } catch (e: any) {
     console.warn(e);
     throw Error(e?.response?.data?.msg || " server error");
     return null;
@@ -91,7 +91,7 @@ export const isUserLoggedInFnc = async (token: string) => {
     const config = {
       method: "post",
       maxBoyLength: Infinity,
-      url: BASE_URL+"/api/v1/user/isSignedin",
+      url: BASE_URL + "/api/v1/user/isSignedin",
       headers: {
         "Content-Type": "application/json",
       },
@@ -99,61 +99,61 @@ export const isUserLoggedInFnc = async (token: string) => {
     };
 
     const result = await axiosInstance.request(config);
-    return result?.data
+    return result?.data;
   } catch (e) {
     console.warn(e);
     return null;
   }
 };
 
-export const getOnRampTransactions = async() => {
+export const getOnRampTransactions = async () => {
   const config = {
-    method:'get',
+    method: "get",
     maxBodyLength: Infinity,
-    url: BASE_URL+'/api/v1/onRampTransactions',
+    url: BASE_URL + "/api/v1/onRampTransactions",
     headers: {
       "Content-Type": "application/json",
-    }
-  }
+    },
+  };
 
   try {
     const response = await axiosInstance.request(config);
     return response?.data;
-  } catch(e:any) {
+  } catch (e: any) {
     console.error(e);
     throw Error(e?.response?.data?.msg || "server error");
   }
-}
+};
 
-export const getBalance = async() => {
+export const getBalance = async () => {
   const config = {
-    method:'get',
+    method: "get",
     maxBodyLength: Infinity,
-    url: BASE_URL+'/api/v1/Balance',
+    url: BASE_URL + "/api/v1/Balance",
     headers: {
       "Content-Type": "application/json",
-    }
-  }
+    },
+  };
 
   try {
     const response = await axiosInstance.request(config);
     return response?.data;
-  } catch(e:any) {
+  } catch (e: any) {
     throw Error(e?.response?.data?.msg || "server error");
   }
-}
+};
 
-export const addToWallet = async(amount:string, name:string) => {
+export const addToWallet = async (amount: string, name: string) => {
   const amountTransformed = Number(amount);
   const data = JSON.stringify({
-    amount:amountTransformed,
+    amount: amountTransformed,
     name,
   });
 
   const config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: BASE_URL+"/api/v1/transfer/addToWallet",
+    url: BASE_URL + "/api/v1/transfer/addToWallet",
     headers: {
       "Content-Type": "application/json",
     },
@@ -163,13 +163,34 @@ export const addToWallet = async(amount:string, name:string) => {
   try {
     result = await axiosInstance.request(config);
     return result?.data;
-  } catch (e:any) {
+  } catch (e: any) {
     console.warn(e);
     throw Error(e?.response?.data?.msg || " server error");
   }
-}
+};
 
-export const P2PtransferHelper = (from:string, to:string) => {
-  
-}
+export const P2PtransferHelper = async(to: string, amount: string) => {
+  const amountTransformed = Number(amount);
+  const data = JSON.stringify({
+    amount: amountTransformed,
+    to,
+  });
 
+  const config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: BASE_URL + "/api/v1/transfer/P2P",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: data,
+  };
+  let result;
+  try {
+    result = await axiosInstance.request(config);
+    return result?.data;
+  } catch (e: any) {
+    console.warn(e);
+    throw Error(e?.response?.data?.msg || " server error");
+  }
+};

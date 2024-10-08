@@ -35,7 +35,7 @@ const Transfer = () => {
                 <AddMoney />
             </div>
             <div className="flex flex-col md:block">
-                <BalanceCard amount={ balance ? balance?.balance?.amount : 0} locked={balance ? balance?.balance?.locked : 0} />
+                <BalanceCard amount={ balance ? balance?.balance?.amount || 0 : 0} locked={balance ? balance?.balance?.locked || 0 : 0} />
                 <div className="pt-4">
                     <OnRampTransactions transactions={transactions} />
                 </div>

@@ -20,7 +20,7 @@ export const AddMoney = () => {
     const navigate = useNavigate();
     return <Card title="Add Money">
     <div className="w-full">
-        <TextInput label={"Amount"} placeholder={"Amount"} onChange={(val:any) => {
+        <TextInput type="number" label={"Amount"} placeholder={"Amount"} onChange={(val:any) => {
         setAmount(val);
         }} />
         <div className="py-4 text-left">
@@ -34,7 +34,6 @@ export const AddMoney = () => {
         }))} />
         <div className="flex justify-center pt-4">
             <Button onClick={() => {
-                // window.location.href = redirectUrl || "";
                 navigate(redirectUrl+`&amount=${amount}`);
             }}>
             Add Money

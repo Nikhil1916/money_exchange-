@@ -52,7 +52,8 @@ transferRouter.post("/addToWallet", async (req: any, res: any) => {
       const response = await axios.request(config);
       console.log(response);
     } catch (e) {
-      return res.json({
+      console.log(e, "web hook error");
+      return res.status(400).json({
         e,
       });
     }
@@ -68,13 +69,63 @@ transferRouter.post("/addToWallet", async (req: any, res: any) => {
   }
 });
 
-transferRouter.post("/P2P", (req: any, res: any) => {
+transferRouter.post("/P2P", async(req: any, res: any) => {
+  
     try {
         const { amount, to} = req.body;
-        const from = req.userId;
+        const userId = req.userId;
+        const toUser = await client.user.findFirst({
+          where:{
+            number:to
+          }
+        });
+        if(!toUser) {
+          return res.status(404).json({
+            msg:"User not found"
+          })
+        }
+        await client.$transaction(async(tx)=>{
+          await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${Number(userId)} FOR UPDATE`;
+          const fromBalance = await tx.balance.findUnique({
+            where:{
+              userId
+            }
+          })
+          if(!fromBalance || fromBalance.amount<amount) {
+            return res.status(400).json({
+              msg:"Insufficient Balance",
+            })
+          }
+          await tx.balance.update({
+            where: { userId: (userId) },
+            data: { amount: { decrement: amount*100 } },
+          });
+
+          await tx.balance.update({
+            where:{
+              userId: toUser?.id
+            },
+            data:{
+              amount:{
+                increment: amount * 100
+              }
+            }
+          })
+        })
+        return res.json({
+          msg:"transaction completed"
+        })
     } catch(e) {
 
     }
 });
+
+async function safeRawQuery(id: number) {
+  const result = await client.$queryRaw`
+    SELECT * FROM "Balance" WHERE "userId" = ${Number(id)} FOR UPDATE
+  `;
+
+  return result;
+}
 
 export default transferRouter;

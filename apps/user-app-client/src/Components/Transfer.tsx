@@ -27,14 +27,14 @@ const Transfer = () => {
         }
     }
     return <div className="w-screen">
-        <div className="text-4xl text-[#6a51a6] pt-8 mb-8 font-bold">
+        <div title={"Bank to Walet Transfer"} className="text-4xl text-[#6a51a6] pt-8 mb-8 font-bold">
             Transfer
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3 p-4">
             <div>
                 <AddMoney />
             </div>
-            <div>
+            <div className="flex flex-col md:block">
                 <BalanceCard amount={ balance ? balance?.balance?.amount : 0} locked={balance ? balance?.balance?.locked : 0} />
                 <div className="pt-4">
                     <OnRampTransactions transactions={transactions} />

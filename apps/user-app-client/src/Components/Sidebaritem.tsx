@@ -2,7 +2,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const SidebarItem = ({ href, title, icon }: { href: string; title: string; icon: React.ReactNode }) => {
+export const SidebarItem = ({ href, title, icon , tooltip }: { href: string; title: string; icon: React.ReactNode, tooltip?:string }) => {
     const navigate = useNavigate();
     const pathname = useLocation()
     if(pathname.pathname == '/') {
@@ -10,7 +10,7 @@ export const SidebarItem = ({ href, title, icon }: { href: string; title: string
     }
     const selected = pathname.pathname == href;
 
-    return <div className={`flex ${selected ? "text-[#6a51a6]" : "text-slate-500"} cursor-pointer  p-2 pl-4`} onClick={() => {
+    return <div title={tooltip} className={`flex ${selected ? "text-[#6a51a6]" : "text-slate-500"} cursor-pointer  p-2 pl-4`} onClick={() => {
         navigate(href);
     }}>
         <div className="pr-2">

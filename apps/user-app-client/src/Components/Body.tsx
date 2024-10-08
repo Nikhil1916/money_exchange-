@@ -35,8 +35,10 @@ const Body = () => {
     <div>
       <Appbar user={Boolean(isLoggedIn)} onSignOut={signOut} />
       <div className="md:flex pt-[3.6rem]">
-        <Sidebar />
-        <div className="ml-60 p-2">
+        <div className="w-0 hidden md:block md:w-52">
+          <Sidebar />
+        </div>
+        <div className="md:ml-60 sm:p-8 md:p-2">
         <Outlet />
         </div>
       </div>

@@ -10,6 +10,7 @@ import Transfer from './Components/Transfer';
 import Transactions from './Components/Transactions';
 import BankUI from './Components/BankUI';
 import { lazy, Suspense } from 'react';
+import P2Ptransactions from './Components/P2Ptransactions';
 function App() {
   const Body = lazy(()=> import("./Components/Body"));
   const router = createBrowserRouter([
@@ -36,6 +37,10 @@ function App() {
           {
             path: "/transaction/bank",
             element: <BankUI/>
+          },
+          {
+            path:"/p2p",
+            element: <P2Ptransactions/>
           }
         ]
     },

@@ -1,6 +1,4 @@
-import axios from "axios";
 import axiosInstance from "./axiosIntercepter";
-// var BASE_URL = 
 const BASE_URL = import.meta.env.VITE_API_URL;
 export const callOtp = async (phoneNumber: string) => {
   const data = JSON.stringify({
@@ -85,7 +83,6 @@ export const signInFnc = async (
 };
 
 export const isUserLoggedInFnc = async (token: string) => {
-  // const BASE_URL = import.meta.env.VITE_API_URL;
   try {
     const data = JSON.stringify({
       token,
@@ -110,8 +107,6 @@ export const isUserLoggedInFnc = async (token: string) => {
 };
 
 export const getOnRampTransactions = async() => {
-  // console.warn(process?.env);
-  // const BASE_URL = import.meta.env.VITE_API_URL;
   const config = {
     method:'get',
     maxBodyLength: Infinity,
@@ -172,5 +167,9 @@ export const addToWallet = async(amount:string, name:string) => {
     console.warn(e);
     throw Error(e?.response?.data?.msg || " server error");
   }
+}
+
+export const P2PtransferHelper = (from:string, to:string) => {
+  
 }
 

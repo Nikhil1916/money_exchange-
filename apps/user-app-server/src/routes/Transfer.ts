@@ -29,11 +29,11 @@ transferRouter.post("/addToWallet", async (req: any, res: any) => {
         token: token,
         userId: Number(userId),
         amount: body?.amount * 100,
-        //for now adding status completed not processing as we dont have a seaprate bank server
         status: "Processing",
       },
     });
 
+//created hook in diff app as web hook should be deployed on diff server bcz we dont want to load as we dont want it to fail
     try {
       const data = JSON.stringify({
         token: token,
@@ -66,6 +66,15 @@ transferRouter.post("/addToWallet", async (req: any, res: any) => {
       msg: "error while ramping transaction",
     });
   }
+});
+
+transferRouter.post("/P2P", (req: any, res: any) => {
+    try {
+        const { amount, to} = req.body;
+        const from = req.userId;
+    } catch(e) {
+
+    }
 });
 
 export default transferRouter;

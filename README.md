@@ -1,3 +1,11 @@
+# Money exchange app
+a turborepo which contains a two ui services and 2 backend services for exchanging money from wallet and adding money via a bank web hook custom handler with a common library for database, input validation via zod , linting and ui components
+tech stack: 
+Frontend: React
+Backend: express
+ORM: prisma
+Database: postgres
+
 # Turborepo starter
 
 This is an official starter Turborepo.
